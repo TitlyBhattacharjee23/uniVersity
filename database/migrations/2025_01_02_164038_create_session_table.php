@@ -12,7 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('session', function (Blueprint $table) {
-            $table->id();
+            $table->id('session_id');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->string('status');
             $table->timestamps();
         });
     }
