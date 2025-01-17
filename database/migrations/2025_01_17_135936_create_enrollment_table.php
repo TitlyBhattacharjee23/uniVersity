@@ -11,20 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('advisor', function (Blueprint $table) {
-            $table->id('advisor_id'); // Primary key
+        Schema::create('enrollment', function (Blueprint $table) {
+            $table->id('enrollment_id'); // Primary key
             $table->unsignedBigInteger('student_id'); // Foreign key for students
             $table->foreign('student_id') // Foreign key constraint
                 ->references('student_id') // References 'student_id' in 'students' table
                 ->on('students') // Parent table
                 ->onDelete('cascade'); // Cascade on delete
 
-            $table->unsignedBigInteger('teacher_id'); // Foreign key for courses
-            $table->foreign('teacher_id') // Foreign key constraint
-                ->references('teacher_id') // References 'course_id' in 'courses' table
-                ->on('teacher') // Parent table
+            $table->unsignedBigInteger('course_id'); // Foreign key for courses
+            $table->foreign('course_id') // Foreign key constraint
+                ->references('course_id') // References 'course_id' in 'courses' table
+                ->on('course') // Parent table
                 ->onDelete('cascade'); // Cascade on delete
-            $table->timestamps();
+
+            $table->date('enrollment_date'); // Enrollment date
+            $table->string('status'); // Status
+            $table->timestamps(); // Timestamps
+
         });
     }
 
@@ -33,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('advisor');
+        Schema::dropIfExists('enrollment');
     }
 };

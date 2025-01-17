@@ -12,8 +12,23 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('result', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id('result_id'); // Primary key
+            $table->unsignedBigInteger('student_id'); // Foreign key for students
+            $table->foreign('student_id') // Foreign key constraint
+                ->references('student_id') // References 'student_id' in 'students' table
+                ->on('students') // Parent table
+                ->onDelete('cascade'); // Cascade on delete
+
+            $table->unsignedBigInteger('course_id'); // Foreign key for courses
+            $table->foreign('course_id') // Foreign key constraint
+                ->references('course_id') // References 'course_id' in 'courses' table
+                ->on('course') // Parent table
+                ->onDelete('cascade'); // Cascade on delete
+
+            $table->float('cgpa'); // Enrollment date
+            $table->string('grade'); // Status
+            $table->timestamps(); // Timestamps
+
         });
     }
 
