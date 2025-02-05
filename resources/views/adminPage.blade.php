@@ -1,4 +1,4 @@
-@extends('master')
+@extends('layout.master')
 @section('title')
 Admin Page
 @endsection
