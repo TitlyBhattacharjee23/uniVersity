@@ -9,7 +9,7 @@ class StudentController extends Controller
 {
     public function homepage($id)
     {
-        return view('welcome', ['student_id' => $student_id]);
+        return view('welcome', ['student_id' => $id]);
     }
     public function index()
     {

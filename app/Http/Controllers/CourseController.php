@@ -9,6 +9,7 @@ class CourseController extends Controller
 {
     public function homepage($id)
     {
+        $course_id = $id;
         return view('welcome', ['course_id' => $course_id]);
     }
     public function index()

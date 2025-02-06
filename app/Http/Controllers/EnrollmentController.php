@@ -9,6 +9,7 @@ class EnrollmentController extends Controller
 {
     public function homepage($id)
     {
+        $enrollment_id = $id;
         return view('welcome', ['enrollment_id' => $enrollment_id]);
     }
     public function index()

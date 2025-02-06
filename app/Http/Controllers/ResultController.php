@@ -9,6 +9,7 @@ class ResultController extends Controller
 {
     public function homepage($id)
     {
+        $result_id = $id;
         return view('welcome', ['result_id' => $result_id]);
     }
     public function index()

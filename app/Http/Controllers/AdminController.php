@@ -9,6 +9,7 @@ class AdminController extends Controller
 {
     public function homepage($id)
     {
+        $admin_id = $id;
         return view('welcome', ['admin_id' => $admin_id]);
     }
     public function index()

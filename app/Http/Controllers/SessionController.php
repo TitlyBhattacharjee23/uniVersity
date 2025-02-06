@@ -9,7 +9,7 @@ class SessionController extends Controller
 {
     public function homepage($id)
     {
-        return view('welcome', ['session_id' => $session_id]);
+        return view('welcome', ['session_id' => $id]);
     }
     public function index()
     {

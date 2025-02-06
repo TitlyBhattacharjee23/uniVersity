@@ -9,6 +9,7 @@ class AdvisorController extends Controller
 {
     public function homepage($id)
     {
+        $advisor_id = $id;
         return view('welcome', ['advisor_id' => $advisor_id]);
     }
     public function index()

@@ -9,6 +9,11 @@ use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TeacherController;
+use Illuminate\Support\Facades\Auth;
+
+Route::get('/', function () {
+    return view('welcome'); // You can replace 'welcome' with your actual homepage view
+});
 
 Route::get('/student/[id]', [StudentController::class,'homepage']);
 Route ::get('/studentView',[StudentController::class,'index']);
@@ -26,3 +31,7 @@ Route::get('/session/[id]', [SessionController::class,'homepage']);
 Route ::get('/sessionView',[SessionController::class,'index']);
 Route::get('/teacher/[id]', [TeacherController::class,'homepage']);
 Route ::get('/teacherView',[TeacherController::class,'index']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
