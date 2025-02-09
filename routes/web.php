@@ -35,3 +35,5 @@ Route ::get('/teacherView',[TeacherController::class,'index']);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/admin', [App\Http\Controllers\AdminController::class, 'usercheck'])->middleware('auth', 'admin');
+// Route::get('/advisor', [App\Http\Controllers\AdvisorController::class, 'usercheck'])->middleware('auth', 'advisor');

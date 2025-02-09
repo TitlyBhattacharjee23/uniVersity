@@ -18,5 +18,7 @@ class AdminController extends Controller
         $admin = DB::table('admin')->get();
         return view('adminPage',compact('admin'));
     }
+
+
 }
 
