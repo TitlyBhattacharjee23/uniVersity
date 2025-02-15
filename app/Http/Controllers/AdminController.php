@@ -1,22 +1,27 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\Admin;
+use Illuminate\Support\Facades\Auth;
+
 
 class AdminController extends Controller
 {
-    public function homepage($id)
-    {
-        $admin_id = $id;
-        return view('welcome', ['admin_id' => $admin_id]);
-    }
-    public function index()
-    {
+   public function homepage($id)
+   {
+       // Get the admin data
+       $admin = Admin::findOrFail($id);
 
-        $admin = DB::table('admin')->get();
-        return view('adminPage',compact('admin'));
-    }
+       // Check if the authenticated student is accessing their own profile
+       if (Auth::guard('admin')->user()->admin_id != $id) {
+           return redirect("/admin/[" . Auth::guard('admin')->user()->admin_id  . "]");
+       }
+
+
+       return view('admin.profile', compact('admin'));
+   }
 }
-

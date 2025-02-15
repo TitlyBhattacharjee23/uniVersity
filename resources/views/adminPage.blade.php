@@ -7,7 +7,7 @@ Admin Page
 Admin Details
 @endsection
 
-@section(section:'adminContent')
+@section(section:'content')
 
     <table class="table">
        <thead>

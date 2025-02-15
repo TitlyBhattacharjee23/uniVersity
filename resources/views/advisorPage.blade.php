@@ -7,7 +7,7 @@ Advisor Page
 Advisor Details
 @endsection
 
-@section(section:'advisorContent')
+@section(section:'content')
 
     <table class="table">
        <thead>

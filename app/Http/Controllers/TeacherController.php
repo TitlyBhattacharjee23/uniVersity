@@ -1,23 +1,27 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\Teacher;
+use Illuminate\Support\Facades\Auth;
+
 
 class TeacherController extends Controller
 {
-    public function homepage($id)
-    {
-        $teacher_id = $id;
-        return view('welcome', ['teacher_id' => $teacher_id]);
-    }
-    public function index()
-    {
+   public function homepage($id)
+   {
+       // Get the admin data
+       $teacher = Teacher::findOrFail($id);
 
-        $teacher = DB::table('teacher')->get();
-        return view('teacherPage',compact('teacher'));
-    }
+       // Check if the authenticated student is accessing their own profile
+       if (Auth::guard('teacher')->user()->teacher_id != $id) {
+           return redirect("/teacher/[" . Auth::guard('teacher')->user()->teacher_id  . "]");
+       }
+
+
+       return view('teacher.profile', compact('teacher'));
+   }
 }
-
-

@@ -7,7 +7,7 @@ Course Page
 Course Details
 @endsection
 
-@section(section:'courseContent')
+@section(section:'content')
 
     <table class="table">
        <thead>

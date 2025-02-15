@@ -7,7 +7,7 @@ Enrollment Page
 Enrollment Details
 @endsection
 
-@section(section:'enrollContent')
+@section(section:'content')
 
     <table class="table">
        <thead>

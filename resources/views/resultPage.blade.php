@@ -7,7 +7,7 @@ Result Page
 Result Details
 @endsection
 
-@section(section:'resultContent')
+@section(section:'content')
 
     <table class="table">
        <thead>

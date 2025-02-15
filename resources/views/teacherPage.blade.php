@@ -7,7 +7,7 @@ Teacher Page
 Teacher Details
 @endsection
 
-@section(section:'teacherContent')
+@section(section:'content')
 
     <table class="table">
        <thead>

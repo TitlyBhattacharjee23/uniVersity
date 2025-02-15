@@ -7,7 +7,7 @@ Session Page
 Session Details
 @endsection
 
-@section(section:'sessionContent')
+@section(section:'content')
 
     <table class="table">
        <thead>
