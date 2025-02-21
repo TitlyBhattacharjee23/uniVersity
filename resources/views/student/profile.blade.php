@@ -16,9 +16,19 @@
         <div class="card">
             <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                 <h3 class="mb-0">Student Information</h3>
-                <button type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#updateProfileModal">
-                    Edit Profile
-                </button>
+                <div class="d-flex gap-2">
+                    <a href="{{ route('student.enrollments.create', $student->student_id) }}" class="btn btn-light">
+                        Create Enrollment
+                    </a>
+
+
+                    <button type="button" class="btn btn-light btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#updateProfileModal">
+                        Edit Profile
+                    </button>
+                </div>
+
+
             </div>
 
             <div class="card-body">
@@ -103,5 +113,93 @@
                 </div>
             </div>
         </div>
+
+
+   <!-- Enrollments List Card -->
+   <div class="card mb-4 ">
+    <div class="card-header bg-primary text-white">
+        <h3 class="mb-0">Enrollment History</h3>
+    </div>
+    <div class="card-body">
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+
+        @if($student->enrollments->count() > 0)
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Session</th>
+                            <th>Semester</th>
+                            <th>Courses</th>
+                            <th>Semester Advisor</th>
+                            <th>Status</th>
+                            <th>Enrolled On</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($student->enrollments->sortByDesc('created_at') as $enrollment)
+                                        <tr>
+                                            <td>
+                                                {{ $enrollment->session->name }}
+                                                <div class="small text-muted">
+                                                    {{ $enrollment->session->start_date }} - {{ $enrollment->session->end_date }}
+                                                </div>
+                                            </td>
+                                            <td>{{ $enrollment->semester->name }}</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#courseList{{ $enrollment->enrollment_id }}">
+                                                    View Courses
+                                                </button>
+                                                <div class="collapse mt-2" id="courseList{{ $enrollment->enrollment_id }}">
+                                                    <div class="card card-body p-2">
+                                                        <ul class="list-unstyled mb-0">
+                                                            @foreach($enrollment->semester->courses as $course)
+                                                                <li>
+                                                                    <strong>{{ $course->code }}</strong> - {{ $course->name }}
+                                                                    <small class="text-muted">({{ $course->teacher->name }})</small>
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                {{ $enrollment->semester->advisor->name }}
+                                                <div class="small text-muted">
+                                                    Advisor
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-{{ $enrollment->status === 'approved' ? 'success' :
+                            ($enrollment->status === 'rejected' ? 'danger' : 'warning') }}">
+                                                    {{ ucfirst($enrollment->status) }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                {{ $enrollment->created_at->format('M d, Y') }}
+                                                <div class="small text-muted">
+                                                    {{ $enrollment->created_at->format('h:i A') }}
+                                                </div>
+                                            </td>
+                                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @else
+            <div class="alert alert-info">
+                No enrollments found. Create your first enrollment by clicking the "Create Enrollment" button above.
+            </div>
+        @endif
+    </div>
+</div>
+
+
     </div>
 @endsection

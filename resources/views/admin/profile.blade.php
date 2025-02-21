@@ -21,6 +21,10 @@
                     <a href="{{ route('admin.sessions.index', $admin->admin_id) }}" class="btn btn-light">
                         Manage Sessions
                     </a>
+                    <a href="{{ route('admin.semesters.index', $admin->admin_id) }}" class="btn btn-light ms-2">
+                        Manage Semesters
+                    </a>
+
                 </div>
             </div>
 

@@ -26,4 +26,17 @@ class Teacher extends Authenticatable
        'password',
        'remember_token',
    ];
+
+
+   public function advisedSemesters()
+   {
+       return $this->hasMany(AcademicSemester::class, 'advisor_id', 'teacher_id');
+   }
+
+
+   public function courses()
+   {
+       return $this->hasMany(AcademicCourse::class, 'teacher_id', 'teacher_id');
+   }
 }
+

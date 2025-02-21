@@ -9,6 +9,7 @@ use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\SemesterController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Middleware\StudentAuthMiddleware;
@@ -78,7 +79,7 @@ Route::middleware([AdminAuthMiddleware::class])->group(function () {
         ->name('admin.sessions.update');
  });
 
- // Student Enrollment Routes
+
 Route::middleware([StudentAuthMiddleware::class])->group(function () {
     // Student Profile Route
     // Student Homepage/Profile Route
@@ -88,6 +89,76 @@ Route::middleware([StudentAuthMiddleware::class])->group(function () {
     Route::put('/student/{id}/profile', [StudentController::class, 'updateProfile'])
         ->name('student.profile.update');
  });
+ // Admin Semester Management Routes
+Route::middleware([AdminAuthMiddleware::class])->group(function () {
+    // Admin Profile Route
+    Route::get('/admin/{admin_id}', [AdminController::class, 'homepage'])
+        ->name('admin.profile');
+
+
+    // Semester Management Routes
+    Route::get('/admin/{admin_id}/semesters', [SemesterController::class, 'index'])
+        ->name('admin.semesters.index');
+
+
+    Route::get('/admin/{admin_id}/semesters/create', [SemesterController::class, 'create'])
+        ->name('admin.semesters.create');
+
+
+    Route::post('/admin/{admin_id}/semesters', [SemesterController::class, 'store'])
+        ->name('admin.semesters.store');
+
+
+    Route::get('/admin/{admin_id}/semesters/{semester_id}/edit', [SemesterController::class, 'edit'])
+        ->name('admin.semesters.edit');
+
+
+    Route::put('/admin/{admin_id}/semesters/{semester_id}', [SemesterController::class, 'update'])
+        ->name('admin.semesters.update');
+
+
+    // Course Management Routes (within semesters)
+    Route::post('/admin/{admin_id}/semesters/{semester_id}/courses', [CourseController::class, 'store'])
+        ->name('admin.semester.courses.store');
+
+
+    Route::put('/admin/{admin_id}/semesters/{semester_id}/courses/{course_id}', [CourseController::class, 'update'])
+        ->name('admin.semester.courses.update');
+
+ });
+ // Student Enrollment Routes
+Route::middleware([StudentAuthMiddleware::class])->group(function () {
+    // Student Profile Route
+    // Student Homepage/Profile Route
+    Route::get('/student/{id}', [StudentController::class, 'homepage'])
+        ->name('student.profile');
+
+
+    // Show enrollment form
+    Route::get('/student/{student_id}/enrollments/create', [EnrollmentController::class, 'create'])
+        ->name('student.enrollments.create');
+
+
+    // Store new enrollment
+    Route::post('/student/{student_id}/enrollments', [EnrollmentController::class, 'store'])
+        ->name('student.enrollments.store');
+
+
+    Route::put('/student/{id}/profile', [StudentController::class, 'updateProfile'])
+        ->name('student.profile.update');
+ });
+
+ Route::middleware([TeacherAuthMiddleware::class])->group(function () {
+    Route::put(
+        '/teacher/enrollments/{enrollment_id}/update-status',
+        [TeacherController::class, 'updateEnrollmentStatus']
+    )->name('teacher.enrollments.update-status');
+ });
+
+
+
+
+
 
 
 

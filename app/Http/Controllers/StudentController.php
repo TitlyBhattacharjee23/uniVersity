@@ -1,29 +1,5 @@
 <?php
 
-// namespace App\Http\Controllers;
-
-// use App\Models\Student;
-// use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\Auth;
-// use Illuminate\Support\Facades\Hash;
-// use Illuminate\Support\Facades\Validator;
-
-// class StudentController extends Controller
-// {
-//     public function homepage($id)
-//     {
-//         return view('welcome', ['student_id' => $id]);
-//     }
-//     public function index()
-//     {
-
-//         $students = DB::table('students')->get();
-//         return view('student/studentPage',compact('students'));
-//     }
-
-
-// }
-
 
 namespace App\Http\Controllers;
 
@@ -38,7 +14,12 @@ class StudentController extends Controller
    public function homepage($id)
    {
        // Get the student data
-       $student = Student::findOrFail($id);
+       $student = Student::with([
+           'enrollments.session',
+           'enrollments.semester.advisor',
+           'enrollments.semester.courses.teacher'
+       ])->findOrFail($id);
+
 
        // Check if the authenticated student is accessing their own profile
        if (Auth::guard('student')->user()->student_id != $id) {
@@ -66,7 +47,7 @@ class StudentController extends Controller
 
        return back()->with('success', 'Profile updated successfully');
    }
-
 }
+
 
 
