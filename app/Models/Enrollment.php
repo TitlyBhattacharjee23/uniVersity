@@ -16,7 +16,7 @@ class Enrollment extends Model
        'student_id',
        'session_id',
        'semester_id',
-
+       'requirements_checked',
        'status'
    ];
 
@@ -44,4 +44,3 @@ class Enrollment extends Model
        return $this->hasMany(Result::class, 'enrollment_id', 'enrollment_id');
    }
 }
-

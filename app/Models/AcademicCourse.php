@@ -7,6 +7,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 
+
+
 class AcademicCourse extends Model
 {
    protected $primaryKey = 'course_id';
@@ -15,6 +17,7 @@ class AcademicCourse extends Model
    protected $fillable = [
        'name',
        'code',
+       'credit',
        'semester_id',
        'teacher_id'
    ];
@@ -22,7 +25,7 @@ class AcademicCourse extends Model
 
    public function semester()
    {
-       return $this->belongsTo(Semester::class, 'semester_id');
+       return $this->belongsTo(AcademicSemester::class, 'semester_id');
    }
 
 
@@ -31,4 +34,3 @@ class AcademicCourse extends Model
        return $this->belongsTo(Teacher::class, 'teacher_id');
    }
 }
-

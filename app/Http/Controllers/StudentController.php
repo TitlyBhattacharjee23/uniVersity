@@ -13,11 +13,12 @@ class StudentController extends Controller
 {
    public function homepage($id)
    {
-       // Get the student data
+       // Get the student data with all necessary relationships
        $student = Student::with([
            'enrollments.session',
            'enrollments.semester.advisor',
-           'enrollments.semester.courses.teacher'
+           'enrollments.semester.courses.teacher',
+           'enrollments.results.course.semester'
        ])->findOrFail($id);
 
 
@@ -27,7 +28,25 @@ class StudentController extends Controller
        }
 
 
-       return view('student.profile', compact('student'));
+       // Group all results by course for easy access to retake information
+       $courseResults = collect();
+       foreach ($student->enrollments as $enrollment) {
+           foreach ($enrollment->results as $result) {
+               if (!$courseResults->has($result->course_id)) {
+                   $courseResults[$result->course_id] = collect();
+               }
+               $courseResults[$result->course_id]->push($result);
+           }
+       }
+
+
+       // Sort results within each course by date, oldest first
+       $courseResults = $courseResults->map(function($results) {
+           return $results->sortByDesc('enrollment.created_at')->values();
+       });
+
+
+       return view('student.profile', compact('student', 'courseResults'));
    }
 
 
@@ -48,6 +67,8 @@ class StudentController extends Controller
        return back()->with('success', 'Profile updated successfully');
    }
 }
+
+
 
 
 

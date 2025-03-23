@@ -44,14 +44,14 @@ Login
 
 
                        <!-- Remember Me -->
-                       <div class="mb-3">
+                       {{-- <div class="mb-3">
                            <div class="form-check">
                                <input class="form-check-input" type="checkbox" name="remember" id="remember">
                                <label class="form-check-label" for="remember">
                                    Remember Me
                                </label>
                            </div>
-                       </div>
+                       </div> --}}
 
 
                        <!-- Submit Button -->

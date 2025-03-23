@@ -148,17 +148,21 @@ Route::middleware([StudentAuthMiddleware::class])->group(function () {
         ->name('student.profile.update');
  });
 
+
  Route::middleware([TeacherAuthMiddleware::class])->group(function () {
     Route::put(
         '/teacher/enrollments/{enrollment_id}/update-status',
         [TeacherController::class, 'updateEnrollmentStatus']
     )->name('teacher.enrollments.update-status');
+
+
+    // Result Management
+    Route::post('/teacher/results/store', [TeacherController::class, 'storeResult'])
+    ->name('teacher.results.store');
+    Route::post('/teacher/results/update', [TeacherController::class, 'updateResult'])
+    ->name('teacher.results.update');
+    Route::get('/teacher/{id}/results', [TeacherController::class, 'showResults'])
+    ->name('teacher.results');
  });
-
-
-
-
-
-
 
 

@@ -15,6 +15,7 @@ return new class extends Migration
            $table->foreignId('student_id')->constrained('students', 'student_id');
            $table->foreignId('session_id')->constrained('academic_sessions', 'session_id');
            $table->foreignId('semester_id')->constrained('academic_semesters', 'semester_id');
+           $table->boolean('requirements_checked')->default(false);
            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
            $table->timestamps();
        });
@@ -26,6 +27,3 @@ return new class extends Migration
        Schema::dropIfExists('enrollments');
    }
 };
-
-
-

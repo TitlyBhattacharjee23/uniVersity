@@ -14,6 +14,7 @@ return new class extends Migration
            $table->id('course_id');
            $table->string('name');
            $table->string('code')->unique();
+           $table->decimal('credit', 3, places: 1)->default(3.0);
            $table->foreignId('semester_id')->constrained('academic_semesters', 'semester_id');
            $table->foreignId('teacher_id')->constrained('teachers', 'teacher_id');
            $table->timestamps();
@@ -26,4 +27,3 @@ return new class extends Migration
        Schema::dropIfExists('academic_courses');
    }
 };
-
