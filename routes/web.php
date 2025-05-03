@@ -166,3 +166,12 @@ Route::middleware([StudentAuthMiddleware::class])->group(function () {
  });
 
 
+Route::get('/student/results/download/{enrollment_id}', [StudentController::class, 'downloadResults'])
+->name('student.results.download')
+->middleware('auth:student');
+
+Route::get('/student/enrollments/download', [StudentController::class, 'downloadEnrollments'])
+   ->name('student.enrollments.download')
+   ->middleware('auth:student');
+
+
