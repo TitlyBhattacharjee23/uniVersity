@@ -1,4 +1,4 @@
-# uniVersity – University Management System
+# uniVersity – University Courses and Result Management System
 
 A web-based University Management System developed using **PHP and Laravel** to simplify and organize academic activities. The system provides separate access for administrators, teachers, and students, allowing them to manage academic sessions, semesters, course enrollment, and student results through a centralized platform.
 
